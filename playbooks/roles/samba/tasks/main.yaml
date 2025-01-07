@@ -1,0 +1,3 @@
+---
+- name: Install Samba Package
+  ansible.builtin.include_tasks: install_samba.yml

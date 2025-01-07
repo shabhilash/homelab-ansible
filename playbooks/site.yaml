@@ -1,6 +1,17 @@
 ---
-- name: Initial Server Setup
-  hosts: linux
+- name: Linux Server Setup [HomeLab]
+  hosts: server
   become: true
   roles:
     - linuxserver
+  tags:
+    - setup
+    - linux
+
+- name: Samba Server Setup
+  hosts: samba
+  become: true
+  roles:
+    - samba
+  tags:
+    - samba
