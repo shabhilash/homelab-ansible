@@ -1,6 +1,6 @@
 ---
-- name: Install package samba
+- name: Install package curl
   ansible.builtin.apt:
-   name: samba
+   name: curl
    update_cache: true
    state: present

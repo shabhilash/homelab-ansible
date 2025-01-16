@@ -1,3 +1,5 @@
 ---
 - name: Update Console banner
   ansible.builtin.include_tasks: update_banner.yml
+- name: Install package cURL
+  ansible.builtin.include_tasks: install_curl.yml
