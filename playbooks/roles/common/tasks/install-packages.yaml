@@ -1,0 +1,5 @@
+- name: Installing packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ required_packages }}"

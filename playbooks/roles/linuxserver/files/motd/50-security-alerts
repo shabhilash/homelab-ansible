@@ -1,0 +1,51 @@
+#!/bin/bash
+
+W="\e[0;39m"
+R="\e[1;31m"
+DIM="\e[2m"
+UNDIM="\e[0m"
+
+# ───── Security Alerts ─────
+alerts=""
+
+# Check for failed login attempts
+failed_logins=$(grep "Failed password" /var/log/auth.log 2>/dev/null | tail -n 5)
+if [[ ! -z "$failed_logins" ]]; then
+  alerts+="  ${R}Failed login attempts detected:${UNDIM} $failed_logins\n"
+fi
+
+# Check for users with expired passwords
+expired_count=0
+while IFS=: read -r username _ uid _; do
+  # Ignore system users (UID < 1000 typically) and users without shells
+  if [[ "$uid" -ge 1000 ]] && id "$username" &>/dev/null; then
+    exp_date=$(chage -l "$username" 2>/dev/null | grep "Password expires" | awk -F': ' '{print $2}')
+    if [[ "$exp_date" != "never" && -n "$exp_date" ]]; then
+      exp_epoch=$(date -d "$exp_date" +%s 2>/dev/null)
+      now_epoch=$(date +%s)
+      if [[ "$exp_epoch" -lt "$now_epoch" ]]; then
+        ((expired_count++))
+      fi
+    fi
+  fi
+done < /etc/passwd
+
+if [[ "$expired_count" -gt 0 ]]; then
+  alerts+="  ${R}${expired_count} user password(s) expired.${UNDIM}\n"
+fi
+
+
+
+# Check for pending APT updates
+updates=$(apt list --upgradable 2>/dev/null | awk '/\// { count++ } END { print count+0 }')
+
+if [[ "$updates" -gt 0 ]]; then
+  alerts+="  ${R}${updates} pending update(s) available.${UNDIM}\n"
+fi
+
+
+
+if [[ ! -z "$alerts" ]]; then
+  echo -e "\n${DIM}==================== Security Alerts ====================${UNDIM}"
+  echo -e "$alerts"
+fi

@@ -1,5 +1,6 @@
 ---
-- name: Update Console banner
-  ansible.builtin.include_tasks: update_banner.yml
-- name: Install package cURL
-  ansible.builtin.include_tasks: install_curl.yml
+- name: Install Essential Packages
+  ansible.builtin.include_tasks:
+    file: "{{ playbook_dir }}/roles/common/tasks/install-packages.yaml"
+- name: Configure console and MOTD banners
+  ansible.builtin.include_tasks: update_login_banners.yaml

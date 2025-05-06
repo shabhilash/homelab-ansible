@@ -1,0 +1,16 @@
+---
+- name: Create Root File Share Directory
+  ansible.builtin.file:
+    path: /share
+    owner: nobody
+    group: nogroup
+    state: directory
+    mode: '666'
+
+- name: Create Public Share Directory
+  ansible.builtin.file:
+    path: /share/public
+    owner: nobody
+    group: nogroup
+    state: directory
+    mode: '666'

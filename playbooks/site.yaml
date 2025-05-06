@@ -1,17 +1,23 @@
 ---
 - name: Linux Server Setup [HomeLab]
-  hosts: server
+  hosts: linux
   become: true
   roles:
     - linuxserver
+  vars:
+    required_packages:
+      - curl
+      - rsync
   tags:
-    - setup
     - linux
 
-- name: Samba Server Setup
+- name: File share Setup
   hosts: samba
   become: true
   roles:
     - samba
+  vars:
+    required_packages:
+      - samba
   tags:
     - samba

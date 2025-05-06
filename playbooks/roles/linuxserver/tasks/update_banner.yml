@@ -1,7 +1,0 @@
----
-- name: Update Console banner
-  ansible.builtin.copy:
-   backup: true
-   dest: /etc/issue
-   src: "{{ role_path }}/files/issue"
-   mode: preserve

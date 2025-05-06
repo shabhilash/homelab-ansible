@@ -1,0 +1,28 @@
+---
+- name: Set custom console login banner (/etc/issue)
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/issue"
+    dest: /etc/issue
+    owner: root
+    group: root
+    mode: '0644'
+    backup: false
+
+- name: Sync MOTD scripts to /etc/update-motd.d/
+  ansible.posix.synchronize:
+    src: "{{ role_path }}/files/motd/"
+    dest: /etc/update-motd.d/
+    mode: push
+    recursive: true
+    owner: true
+    group: true
+    perms: true
+
+- name: Set static MOTD text banner (/etc/motd)
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/motd-text"
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: '0644'
+    backup: false
