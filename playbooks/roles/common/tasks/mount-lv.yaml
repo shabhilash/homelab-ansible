@@ -1,0 +1,14 @@
+---
+- name: Ensure mount point exists
+  ansible.builtin.file:
+    path: "{{ common_mount_point }}"
+    state: directory
+    mode: "{{ common_mount_mode }}"
+
+- name: Mount the logical volume and Add entry into /etc/fstab
+  ansible.builtin.mount:
+    path: "{{ common_mount_point }}"
+    src: "{{ common_lv_path }}"
+    fstype: "{{ common_fs_type }}"
+    state: "{{ common_state }}"
+    opts: defaults

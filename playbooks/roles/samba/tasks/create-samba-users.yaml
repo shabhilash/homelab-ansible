@@ -1,0 +1,15 @@
+---
+- name: Ensure Samba group exists
+  ansible.builtin.group:
+    name: "{{ samba_group }}"
+    state: present
+
+- name: Create and add users to group
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    state: present
+    groups: "{{ samba_group }}"
+    shell: "{{ item.shell }}"
+    append: true
+    create_home: false
+  loop: "{{ samba_users }}"

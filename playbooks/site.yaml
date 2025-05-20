@@ -14,6 +14,8 @@
 - name: File share Setup
   hosts: samba
   become: true
+  vars_files:
+    - ../config/samba.yaml
   roles:
     - samba
   vars:
@@ -21,3 +23,23 @@
       - samba
   tags:
     - samba
+
+- name: Media Server Setup
+  hosts: media
+  become: true
+  vars:
+    media_transmission_rpc_password: "debian"
+    media_transmission_download_dir: "/share/public"
+    required_packages:
+      - transmission-daemon
+  tasks:
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Apply media role if smbd service is running
+      ansible.builtin.include_role:
+        name: media
+      when: >
+        services['smbd'].state is defined and services['smbd'].state == 'running'
+  tags:
+    - media

@@ -1,0 +1,8 @@
+---
+media_transmission_service_name: transmission-daemon
+media_transmission_user: debian-transmission
+media_transmission_group: debian-transmission
+media_transmission_config_dir: /var/lib/transmission-daemon/.config/transmission-daemon
+media_transmission_download_dir: /share/public/movies
+media_transmission_rpc_username: debian
+media_transmission_rpc_password: debian

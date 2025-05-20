@@ -5,12 +5,21 @@
     owner: nobody
     group: nogroup
     state: directory
-    mode: '666'
+    mode: '755'
 
-- name: Create Public Share Directory
+- name: Ensure share directories exist
   ansible.builtin.file:
-    path: /share/public
-    owner: nobody
-    group: nogroup
+    path: "{{ item.mount_point }}"
     state: directory
-    mode: '666'
+  loop: "{{ shares }}"
+
+- name: Mount Logical Volumes
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: mount-lv
+  loop: "{{ shares }}"
+
+  vars:
+    common_lv_path: "{{ item.lv_path }}"
+    common_mount_point: "{{ item.mount_point }}"
+    common_mount_mode: "{{ item.mode }}"

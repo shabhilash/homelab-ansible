@@ -1,0 +1,54 @@
+- name: Update Public Share Samba Configuration
+  ansible.builtin.blockinfile:
+    path: /etc/samba/smb.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - public"
+    insertafter: EOF
+    block: |
+      [public]
+        path = /share/public
+        public = yes
+        writable = yes
+        guest ok = yes
+        browseable = yes
+        force user = nobody
+  notify: Restart Samba
+
+- name: Update Glm Share Samba Configuration
+  ansible.builtin.blockinfile:
+    path: /etc/samba/smb.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - glm"
+    insertafter: EOF
+    block: |
+      [glm]
+        path = /share/glm
+        valid users = @sambashare
+        writable = yes
+        browseable = yes
+  notify: Restart Samba
+
+- name: Update general Share Samba Configuration
+  ansible.builtin.blockinfile:
+    path: /etc/samba/smb.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - general"
+    insertafter: EOF
+    block: |
+      [general]
+        path = /share/general
+        valid users = @sambashare
+        writable = yes
+        browseable = yes
+        force group = sambashare
+  notify: Restart Samba
+
+- name: Update git Share Samba Configuration
+  ansible.builtin.blockinfile:
+    path: /etc/samba/smb.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - git"
+    insertafter: EOF
+    block: |
+      [git]
+        path = /share/git
+        valid users = abhil
+        writable = yes
+        browseable = no
+  notify: Restart Samba

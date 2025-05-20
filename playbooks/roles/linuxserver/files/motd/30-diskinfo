@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # config
-max_usage=90
+max_usage=85
 bar_width=50
 # colors
 white="\e[39m"
@@ -13,7 +13,6 @@ undim="\e[0m"
 # disk usage: ignore zfs, squashfs & tmpfs
 echo -e "\n${dim}==================== Disk Usage =====================${undim}"
 mapfile -t dfs < <(df -H -x zfs -x squashfs -x tmpfs -x devtmpfs -x overlay --output=target,pcent,size | tail -n+2)
-printf "\ndisk usage:\n"
 
 for line in "${dfs[@]}"; do
     # get disk usage

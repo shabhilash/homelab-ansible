@@ -1,0 +1,6 @@
+---
+- name: Restart transmission service
+  ansible.builtin.service:
+    name: "{{ media_transmission_service_name }}"
+    state: restarted
+  become: true

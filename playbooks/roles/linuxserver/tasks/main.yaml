@@ -1,6 +1,7 @@
 ---
 - name: Install Essential Packages
-  ansible.builtin.include_tasks:
-    file: "{{ playbook_dir }}/roles/common/tasks/install-packages.yaml"
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: install-packages
 - name: Configure console and MOTD banners
   ansible.builtin.include_tasks: update_login_banners.yaml

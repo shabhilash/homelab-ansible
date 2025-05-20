@@ -1,0 +1,21 @@
+- name: Deploy modified settings
+  become: true
+  block:
+    - name: Stop transmission service
+      ansible.builtin.service:
+        name: "{{ media_transmission_service_name }}"
+        state: stopped
+
+    - name: Deploy transmission config (overwrite)
+      ansible.builtin.template:
+        src: transmission-daemon-settings.json.j2
+        dest: "{{ media_transmission_config_dir }}/settings.json"
+        owner: "{{ media_transmission_user }}"
+        group: "{{ media_transmission_group }}"
+        mode: '0644'
+
+    - name: Start transmission service
+      ansible.builtin.service:
+        name: "{{ media_transmission_service_name }}"
+        state: started
+        enabled: true

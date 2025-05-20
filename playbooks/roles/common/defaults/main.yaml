@@ -1,0 +1,11 @@
+---
+# Default path to logical volume — must be overridden per-host or in playbook
+common_lv_path: ""
+# Default mount point
+common_mount_point: "/mnt/storage"
+# Default Mount state
+common_state: mounted
+# Default filesystem type
+common_fs_type: "ext4"
+# Default Mount permission
+common_mount_mode: "770"

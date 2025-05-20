@@ -1,8 +1,11 @@
 ---
-- name: Install Samba Package
-  ansible.builtin.include_tasks:
-    file: "{{ playbook_dir }}/roles/common/tasks/install-packages.yaml"
+- name: Install Required packages
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: install-packages
 - name: Create Directory Structure
   ansible.builtin.include_tasks: create-fs.yaml
 - name: Update Config
-  ansible.builtin.include_tasks: file-share.yaml
+  ansible.builtin.include_tasks: samba-file-share-conf.yaml
+- name: Create users and add to Samba group
+  ansible.builtin.include_tasks: create-samba-users.yaml

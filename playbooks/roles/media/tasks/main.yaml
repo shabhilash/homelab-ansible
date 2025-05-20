@@ -1,0 +1,24 @@
+---
+- name: Install Required packages
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: install-packages
+
+- name: Ensure transmission service is enabled and started
+  ansible.builtin.service:
+    name: "{{ media_transmission_service_name }}"
+    state: started
+    enabled: true
+  become: true
+
+- name: Create transmission download directory
+  ansible.builtin.file:
+    path: "{{ media_transmission_download_dir }}"
+    state: directory
+    owner: "{{ media_transmission_user }}"
+    group: "{{ media_transmission_group }}"
+    mode: '0775'
+  become: true
+
+- name: Update Settings Config
+  ansible.builtin.include_tasks: deploy-settings.yaml

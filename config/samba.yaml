@@ -1,0 +1,27 @@
+samba_group: sambashare
+samba_users:
+  - name: abhil
+    shell: /bin/bash
+  - name: glm
+    shell: /usr/sbin/nologin
+
+shares:
+  - name: public
+    lv_path: /dev/homelabvg/guestlv
+    mount_point: /share/public
+    mode: "0777"
+
+  - name: glm
+    lv_path: /dev/homelabvg/glmlv
+    mount_point: /share/glm
+    mode: "0770"
+
+  - name: general
+    lv_path: /dev/homelabvg/sharelv
+    mount_point: /share/general
+    mode: "0770"
+
+  - name: git
+    lv_path: /dev/homelabvg/gitlv
+    mount_point: /share/git
+    mode: "0770"
