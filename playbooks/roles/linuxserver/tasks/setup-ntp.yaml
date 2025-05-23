@@ -1,0 +1,24 @@
+---
+- name: Install chrony
+  ansible.builtin.apt:
+    name: chrony
+    state: present
+    update_cache: true
+
+- name: Enable and start chrony service
+  ansible.builtin.systemd:
+    name: chrony
+    enabled: true
+    state: started
+
+- name: Get current NTP status
+  ansible.builtin.command: timedatectl show -p NTP
+  register: ntp_status
+  changed_when: false
+
+- name: Enable NTP sync with timedatectl if not already enabled
+  ansible.builtin.command: timedatectl set-ntp true
+  when: ntp_status.stdout != "NTP=yes"
+  register: timedatectl_output
+  changed_when: true
+  failed_when: "'NTP not supported' in timedatectl_output.stderr"
