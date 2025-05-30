@@ -43,3 +43,15 @@
         services['smbd'].state is defined and services['smbd'].state == 'running'
   tags:
     - media
+
+# - name: Custom Linux package installs [nexus]
+#   hosts: linux
+#   become: true
+#   tasks:
+#     - name: Install custom misc packages
+#       ansible.builtin.package:
+#         name: "{{ item }}"
+#         state: absent
+#       loop:
+#         - wsdd
+#   tags: nexus

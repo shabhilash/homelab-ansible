@@ -25,3 +25,8 @@ shares:
     lv_path: /dev/homelabvg/gitlv
     mount_point: /share/git
     mode: "0770"
+
+  - name: owncloud
+    lv_path: /dev/homelabvg/owncloudlv
+    mount_point: /share/owncloud
+    mode: "0770"

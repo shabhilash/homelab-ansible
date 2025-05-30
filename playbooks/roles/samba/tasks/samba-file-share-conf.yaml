@@ -50,5 +50,19 @@
         path = /share/git
         valid users = abhil
         writable = yes
-        browseable = no
+        browseable = yes
+  notify: Restart Samba
+
+- name: Update owncloud Share Samba Configuration
+  ansible.builtin.blockinfile:
+    path: /etc/samba/smb.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - owncloud"
+    insertafter: EOF
+    block: |
+      [owncloud]
+        path = /share/owncloud
+        valid users = abhil
+        writable = yes
+        browseable = yes
+        force group = sambashare
   notify: Restart Samba
