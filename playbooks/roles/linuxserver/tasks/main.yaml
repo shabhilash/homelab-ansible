@@ -8,3 +8,4 @@
 
 - name: Install and configure NTP using chrony
   ansible.builtin.include_tasks: setup-ntp.yaml
+  when: "'linux32' in group_names"

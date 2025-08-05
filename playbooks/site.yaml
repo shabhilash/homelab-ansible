@@ -29,7 +29,7 @@
   become: true
   vars:
     media_transmission_rpc_password: "debian"
-    media_transmission_download_dir: "/share/public"
+    media_transmission_download_dir: "/share/public/movies/transmission"
     required_packages:
       - transmission-daemon
   tasks:

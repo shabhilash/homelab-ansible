@@ -5,9 +5,9 @@
     owner: nobody
     group: nogroup
     state: directory
-    mode: '755'
+    mode: '0755'
 
-- name: Ensure share directories exist
+- name: Ensure share directories exist # noqa risky-file-permissions
   ansible.builtin.file:
     path: "{{ item.mount_point }}"
     state: directory

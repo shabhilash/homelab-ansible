@@ -53,15 +53,15 @@
         browseable = yes
   notify: Restart Samba
 
-- name: Update owncloud Share Samba Configuration
+- name: Update vault Share Samba Configuration
   ansible.builtin.blockinfile:
     path: /etc/samba/smb.conf
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - owncloud"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - vault"
     insertafter: EOF
     block: |
-      [owncloud]
-        path = /share/owncloud
-        valid users = abhil
+      [vault]
+        path = /share/vault
+        valid users = @sambashare
         writable = yes
         browseable = yes
         force group = sambashare

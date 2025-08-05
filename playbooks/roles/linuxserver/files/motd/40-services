@@ -8,7 +8,7 @@ dim="\e[2m"
 undim="\e[0m"
 
 # Add more services as you like
-services=("sshd" "smbd")
+[ -f /usr/local/bin/global.conf ] && source /usr/local/bin/global.conf || services=("sshd")
 # sort services
 IFS=$'\n' services=($(sort <<<"${services[*]}"))
 unset IFS
