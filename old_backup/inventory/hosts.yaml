@@ -1,0 +1,26 @@
+all:
+  hosts:
+    nexus:
+      ansible_host: 192.168.1.5
+      ansible_user: abhil
+    hpn:
+      ansible_host: 192.168.1.10
+      ansible_user: abhil
+
+  children:
+    linux32:
+      hosts:
+        nexus: {}
+    
+    linux:
+      hosts:
+        nexus: {}
+        hpn: {}
+
+    samba:
+      hosts:
+        nexus: {}
+
+    media:
+      hosts:
+        nexus: {}

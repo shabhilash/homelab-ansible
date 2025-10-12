@@ -1,0 +1,16 @@
+name: Nexus Homelab Ansible
+
+on:
+    workflow_dispatch:
+
+jobs:
+    setup:
+        runs-on: [self-hosted, homelab]
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Check Version
+              run: ansible --version
+
+            - name: Run Ansible Playbook
+              run: ansible-playbook ansible/site.yml -i ansible/inventory/hosts.yml

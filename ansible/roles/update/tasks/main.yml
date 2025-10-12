@@ -1,0 +1,16 @@
+---
+- name: Update APT package cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600 # update cache if older than 1 hour
+
+- name: Upgrade all packages to latest
+  ansible.builtin.apt:
+    upgrade: dist
+    autoremove: yes
+    autoclean: yes
+
+- name: Reboot server if required
+  ansible.builtin.reboot:
+    reboot_timeout: 300
+  when: ansible_facts['pkg_mgr'] == 'apt' and ansible_facts['os_family'] == 'Debian'

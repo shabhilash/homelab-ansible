@@ -1,0 +1,25 @@
+---
+- name: Create Root File Share Directory
+  ansible.builtin.file:
+    path: /share
+    owner: nobody
+    group: nogroup
+    state: directory
+    mode: '0755'
+
+- name: Ensure share directories exist # noqa risky-file-permissions
+  ansible.builtin.file:
+    path: "{{ item.mount_point }}"
+    state: directory
+  loop: "{{ shares }}"
+
+- name: Mount Logical Volumes
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: mount-lv
+  loop: "{{ shares }}"
+
+  vars:
+    common_lv_path: "{{ item.lv_path }}"
+    common_mount_point: "{{ item.mount_point }}"
+    common_mount_mode: "{{ item.mode }}"
