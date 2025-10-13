@@ -1,4 +1,6 @@
-- hosts: all
+---
+- name: Update and patch all servers
+  hosts: all
   become: true
   roles:
     - update
