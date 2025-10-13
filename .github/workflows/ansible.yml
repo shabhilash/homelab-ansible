@@ -1,16 +1,37 @@
-name: Nexus Homelab Ansible
+name: Homelab Deployment
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
+    inputs:
+      role:
+        description: "Select the role to run"
+        required: true
+        default: "setup"
+        type: choice
+        options:
+          - setup
+      dry_run:
+        description: "Enable dry-run mode"
+        required: false
+        default: "false"
 
 jobs:
-    setup:
-        runs-on: [self-hosted, homelab]
-        steps:
-            - uses: actions/checkout@v4
+  deploy:
+    runs-on: [self-hosted, homelab]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
 
-            - name: Check Version
-              run: ansible --version
+      - name: Execute Ansible Playbook
+        run: |
+          ROLE="${{ github.event.inputs.role }}"
+          DRY_RUN="${{ github.event.inputs.dry_run }}"
 
-            - name: Run Ansible Playbook
-              run: ansible-playbook ansible/site.yml -i ansible/inventory/hosts.yml
+          echo "Selected role: $ROLE"
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "Running in dry-run mode..."
+            ansible-playbook ansible/site.yml -i ansible/inventory/hosts.yml --tags "$ROLE" --check --diff
+          else
+            echo "Executing role: $ROLE"
+            ansible-playbook ansible/site.yml -i ansible/inventory/hosts.yml --tags "$ROLE"
+          fi

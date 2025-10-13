@@ -11,6 +11,7 @@
     autoremove: yes
     autoclean: yes
   when: ansible_facts['pkg_mgr'] == 'apt'
+  check_mode: no # Package upgrades cannot run in dry-run
 
 - name: Check if reboot is required
   ansible.builtin.stat:
@@ -21,13 +22,13 @@
 - name: Reboot if required
   ansible.builtin.reboot:
     reboot_timeout: 300
-  when: reboot_required.stat.exists
+  when: reboot_required.stat.exists and not ansible_check_mode
 
 - name: Wait for node to be back online
   ansible.builtin.wait_for_connection:
     delay: 10
     timeout: 300
-  when: reboot_required.stat.exists
+  when: reboot_required.stat.exists and not ansible_check_mode
 
 - name: Confirm update complete
   ansible.builtin.shell: uname -r

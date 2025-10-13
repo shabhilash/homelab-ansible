@@ -1,0 +1,12 @@
+---
+- name: Deploy homelab MOTD
+  ansible.builtin.copy:
+    dest: /etc/motd
+    content: |
+      =====================================================
+      =  AUTOMATED SERVER MANAGEMENT WITH ANSIBLE
+      =  https://github.com/shabhilash/homelab-ansible
+      =====================================================
+    owner: root
+    group: root
+    mode: "0644"

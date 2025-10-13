@@ -1,6 +1,8 @@
 ---
-- name: Update and patch all servers
+- name: Nexus Homelab Automation - Ansible
   hosts: all
   become: true
+  gather_facts: true
+
   roles:
-    - update
+    - { role: setup, tags: ["setup"] }
