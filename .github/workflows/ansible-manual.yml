@@ -19,7 +19,7 @@ on:
 
 jobs:
   deploy:
-    uses: shabhilash/homelab-ansible/.github/jobs/homelab-deployment.yml@main
+    uses: shabhilash/homelab-ansible/.github/workflows/jobs/homelab-deployment.yml@main
     with:
       role: ${{ github.event.inputs.role }}
       dry_run: ${{ github.event.inputs.dry_run }}
