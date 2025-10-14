@@ -1,4 +1,4 @@
-name: Homelab Deployment Manual
+name: Homelab Manual Deployment
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
         type: choice
         options:
           - setup
-          - update
+          - maintenance
       dry_run:
         description: "Enable dry-run mode"
         required: false

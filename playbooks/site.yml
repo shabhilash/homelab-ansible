@@ -6,4 +6,4 @@
 
   roles:
     - { role: setup, tags: ["setup"] }
-    - { role: update, tags: ["update"] }
+    - { role: maintenance, tags: ["maintenance"] }

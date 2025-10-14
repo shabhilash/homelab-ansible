@@ -1,4 +1,4 @@
-name: Homelab Auto Deployment
+name: Homelab Maintenance Job
 
 on:
     schedule:
@@ -8,5 +8,5 @@ jobs:
     deploy:
         uses: shabhilash/homelab-ansible/.github/workflows/homelab-deployment.yml@main
         with:
-            role: update
+            role: maintenance
             dry_run: "false"

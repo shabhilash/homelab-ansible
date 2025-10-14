@@ -8,11 +8,11 @@ on:
         type: string
       dry_run:
         required: false
-        default: "false" # string, not boolean
+        default: "false"
         type: string
 
 jobs:
-  deploy:
+  run-role-playbook:
     runs-on: [self-hosted, homelab]
     steps:
       - name: Checkout Repository
@@ -24,7 +24,7 @@ jobs:
           DRY_RUN="${{ inputs.dry_run }}"
 
           # Validate role
-          VALID_ROLES=("setup" "update")
+          VALID_ROLES=("setup" "maintenance")
           if [[ ! " ${VALID_ROLES[@]} " =~ " $ROLE " ]]; then
             echo "ERROR: Invalid role: $ROLE"
             exit 1

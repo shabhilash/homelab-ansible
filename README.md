@@ -1,6 +1,7 @@
 # Nexus Homelab Automation
 
-[![Nexus-Homelab Ansible](https://github.com/shabhilash/homelab-ansible/actions/workflows/ansible.yml/badge.svg)](https://github.com/shabhilash/homelab-ansible/actions/workflows/ansible.yml)
+[![Homelab Manual Deployment](https://github.com/shabhilash/homelab-ansible/actions/workflows/ansible-manual.yml/badge.svg)](https://github.com/shabhilash/homelab-ansible/actions/workflows/ansible-manual.yml)
+[![Homelab Auto Deployment](https://github.com/shabhilash/homelab-ansible/actions/workflows/cron-2-am.yml/badge.svg)](https://github.com/shabhilash/homelab-ansible/actions/workflows/cron-2-am.yml)
 
 Centralized infrastructure-as-code for managing homelab servers using Ansible and GitHub Actions (self-hosted runner).
 
