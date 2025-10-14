@@ -9,4 +9,4 @@ jobs:
         uses: shabhilash/homelab-ansible/.github/workflows/homelab-deployment.yml@main
         with:
             role: update
-            dry_run: false
+            dry_run: "false"

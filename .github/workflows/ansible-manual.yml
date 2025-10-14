@@ -14,12 +14,11 @@ on:
       dry_run:
         description: "Enable dry-run mode"
         required: false
-        default: false
-        type: boolean
+        default: "false"
 
 jobs:
   deploy:
     uses: shabhilash/homelab-ansible/.github/workflows/homelab-deployment.yml@main
     with:
       role: ${{ github.event.inputs.role }}
-      dry_run: ${{ github.event.inputs.dry_run }}
+      dry_run: "${{ github.event.inputs.dry_run }}"
