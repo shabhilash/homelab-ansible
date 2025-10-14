@@ -1,0 +1,4 @@
+---
+- name: Update and patch all Debian-based servers
+  ansible.builtin.import_tasks:
+    file: update.yml

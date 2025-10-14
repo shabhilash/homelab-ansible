@@ -1,0 +1,33 @@
+name: Homelab Deployment
+
+on:
+  workflow_call:
+    inputs:
+      role:
+        required: true
+        type: string
+      dry_run:
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, homelab]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Execute Ansible Playbook
+        run: |
+          ROLE="${{ inputs.role }}"
+          DRY_RUN="${{ inputs.dry_run }}"
+
+          echo "Selected role: $ROLE"
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "Running in dry-run mode..."
+            ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml --tags "$ROLE" --check --diff
+          else
+            echo "Executing role: $ROLE"
+            ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml --tags "$ROLE"
+          fi

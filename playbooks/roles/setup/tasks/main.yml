@@ -2,8 +2,3 @@
 - name: Update MOTD
   ansible.builtin.import_tasks:
     file: motd.yml
-
-- name: Update and patch all Debian-based servers
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: update

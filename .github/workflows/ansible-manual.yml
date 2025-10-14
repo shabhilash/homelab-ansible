@@ -1,0 +1,25 @@
+name: Homelab Deployment Manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      role:
+        description: "Role to run"
+        required: true
+        default: setup
+        type: choice
+        options:
+          - setup
+          - update
+      dry_run:
+        description: "Enable dry-run mode"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  deploy:
+    uses: ./.github/jobs/homelab-deployment.yml
+    with:
+      role: ${{ github.event.inputs.role }}
+      dry_run: ${{ github.event.inputs.dry_run }}

@@ -1,0 +1,12 @@
+name: Homelab Auto Deployment
+
+on:
+    schedule:
+        - cron: "0 20 * * 6" # 2 AM IST Sunday
+
+jobs:
+    deploy:
+        uses: ./.github/jobs/homelab-deployment.yml
+        with:
+            role: update
+            dry_run: false

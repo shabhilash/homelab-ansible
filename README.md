@@ -43,7 +43,6 @@ ansible-playbook ansible/site.yml -i ansible/inventory/hosts.yml
 
 ## Roadmap
 
-- Patch/update roles
 - Docker/Docker Compose management
 - Terraform provisioning
 - Monitoring roles (Prometheus/Grafana)
