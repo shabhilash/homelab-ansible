@@ -6,7 +6,7 @@ on:
 
 jobs:
     deploy:
-        uses: ./.github/jobs/homelab-deployment.yml
+        uses: shabhilash/homelab-ansible/.github/jobs/homelab-deployment.yml@main
         with:
             role: update
             dry_run: false
