@@ -28,6 +28,7 @@ jobs:
 
   maintenance-role:
     name: Maintenance Role Deployment
+    needs: setup-role
     if: ${{ github.event.inputs.role == 'maintenance' || github.event.inputs.role == 'all' }}
     uses: shabhilash/homelab-ansible/.github/workflows/homelab-deployment.yml@main
     with:
