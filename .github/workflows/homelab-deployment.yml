@@ -12,36 +12,26 @@ on:
         type: string
 
 jobs:
-  run-role-playbook:
+  execute-ansible-role:
+    name: Execute Ansible Role
     runs-on: [self-hosted, homelab]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: Execute Ansible Playbook
+      - name: Run Ansible Playbook
         run: |
           ROLE="${{ inputs.role }}"
           DRY_RUN="${{ inputs.dry_run }}"
-
-          # Validate role
-          VALID_ROLES=("setup" "maintenance" "all")
-          if [[ ! " ${VALID_ROLES[@]} " =~ " $ROLE " ]]; then
-            echo "ERROR: Invalid role: $ROLE"
-            exit 1
-          fi
+          DRY_RUN_FLAG=""
 
           echo "Selected role: $ROLE"
 
-          # Set dry-run flag
-          DRY_RUN_FLAG=""
           if [ "$DRY_RUN" = "true" ]; then
             echo "Running in dry-run mode..."
             DRY_RUN_FLAG="--check"
           fi
 
-          if [ "$ROLE" = "all" ]; then
-            echo "Running all tasks..."
-            ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml $DRY_RUN_FLAG --diff
-          else
-            ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml --tags "$ROLE" $DRY_RUN_FLAG --diff
-          fi
+          echo "Executing Ansible role: $ROLE"
+          ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml --tags "$ROLE" $DRY_RUN_FLAG --diff

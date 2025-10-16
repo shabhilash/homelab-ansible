@@ -5,7 +5,8 @@ on:
         - cron: "0 20 * * 6" # 2 AM IST Sunday
 
 jobs:
-    deploy:
+    maintenance-role:
+        name: Scheduled Maintenance Role
         uses: shabhilash/homelab-ansible/.github/workflows/homelab-deployment.yml@main
         with:
             role: maintenance

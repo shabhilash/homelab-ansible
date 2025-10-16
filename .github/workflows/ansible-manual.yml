@@ -6,20 +6,30 @@ on:
       role:
         description: "Role to run"
         required: true
-        default: maintenance
+        default: all
         type: choice
         options:
-          - all
           - setup
           - maintenance
+          - all
       dry_run:
         description: "Enable dry-run mode"
         required: false
         default: "false"
 
 jobs:
-  deploy:
+  setup-role:
+    name: Setup Role Deployment
+    if: ${{ github.event.inputs.role == 'setup' || github.event.inputs.role == 'all' }}
     uses: shabhilash/homelab-ansible/.github/workflows/homelab-deployment.yml@main
     with:
-      role: ${{ github.event.inputs.role }}
+      role: setup
+      dry_run: "${{ github.event.inputs.dry_run }}"
+
+  maintenance-role:
+    name: Maintenance Role Deployment
+    if: ${{ github.event.inputs.role == 'maintenance' || github.event.inputs.role == 'all' }}
+    uses: shabhilash/homelab-ansible/.github/workflows/homelab-deployment.yml@main
+    with:
+      role: maintenance
       dry_run: "${{ github.event.inputs.dry_run }}"
