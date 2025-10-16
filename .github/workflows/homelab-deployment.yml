@@ -24,7 +24,7 @@ jobs:
           DRY_RUN="${{ inputs.dry_run }}"
 
           # Validate role
-          VALID_ROLES=("setup" "maintenance")
+          VALID_ROLES=("setup" "maintenance" "all")
           if [[ ! " ${VALID_ROLES[@]} " =~ " $ROLE " ]]; then
             echo "ERROR: Invalid role: $ROLE"
             exit 1
@@ -39,4 +39,9 @@ jobs:
             DRY_RUN_FLAG="--check"
           fi
 
-          ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml --tags "$ROLE" $DRY_RUN_FLAG --diff
+          if [ "$ROLE" = "all" ]; then
+            echo "Running all tasks..."
+            ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml $DRY_RUN_FLAG --diff
+          else
+            ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml --tags "$ROLE" $DRY_RUN_FLAG --diff
+          fi

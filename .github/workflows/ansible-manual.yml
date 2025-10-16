@@ -6,9 +6,10 @@ on:
       role:
         description: "Role to run"
         required: true
-        default: setup
+        default: maintenance
         type: choice
         options:
+          - all
           - setup
           - maintenance
       dry_run:
