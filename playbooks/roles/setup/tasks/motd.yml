@@ -154,9 +154,9 @@
     group: root
     mode: "0744"
 
-- name: Linux MOTD - uname
+- name: Linux MOTD - security-alerts
   ansible.builtin.copy:
-    dest: /etc/update-motd.d/10-uname
+    dest: /etc/update-motd.d/50-security-alerts
     content: |
       #!/bin/bash
 
