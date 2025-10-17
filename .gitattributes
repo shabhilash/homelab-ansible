@@ -1,0 +1,13 @@
+# Enforce LF line endings
+* text eol=lf
+
+# Specific rules for Ansible files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.j2 text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+
+# Specific rules for GitHub Actions workflows
+.github/workflows/*.yml text eol=lf
+.github/workflows/*.yaml text eol=lf
