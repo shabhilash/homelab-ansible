@@ -15,12 +15,12 @@ Designed to be modular and extensible as new roles or services are added.
 
 ```
 .
-├── ansible/            # Playbooks, roles, inventory
+├── playbooks/            # Playbooks, roles, inventory
 ├── .github/workflows/  # GitHub Actions workflows
 └── README.md
 ```
 
-`ansible/` — main playbooks, modular roles, and inventory.
+`playbooks/` — main playbooks, modular roles, and inventory.
 
 `workflows/` — workflows that trigger playbooks on the self-hosted runner.
 
@@ -33,7 +33,7 @@ Designed to be modular and extensible as new roles or services are added.
 Trigger workflows manually or run playbooks locally:
 
 ```
-ansible-playbook ansible/site.yml -i ansible/inventory/hosts.yml
+ansible-playbook playbooks/site.yml -i playbooks/inventory/hosts.yml
 ```
 
 ## Notes
