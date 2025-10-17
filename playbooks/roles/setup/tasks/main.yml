@@ -2,3 +2,7 @@
 - name: Update MOTD
   ansible.builtin.import_tasks:
     file: motd.yml
+
+- name: Update Issue
+  ansible.builtin.import_tasks:
+    file: issue.yml
