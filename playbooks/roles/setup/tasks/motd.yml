@@ -19,7 +19,7 @@
       uname -snrvm
     owner: root
     group: root
-    mode: "0644"
+    mode: "0744"
 
 - name: Linux MOTD - sysinfo
   ansible.builtin.copy:
@@ -56,7 +56,7 @@
 
     owner: root
     group: root
-    mode: "0644"
+    mode: "0744"
 
 - name: Linux MOTD - diskinfo
   ansible.builtin.copy:
@@ -104,7 +104,7 @@
       done
     owner: root
     group: root
-    mode: "0644"
+    mode: "0744"
 
 - name: Linux MOTD - services
   ansible.builtin.copy:
@@ -152,8 +152,7 @@
 
     owner: root
     group: root
-    mode: "0644"
-
+    mode: "0744"
 
 - name: Linux MOTD - uname
   ansible.builtin.copy:
@@ -209,4 +208,4 @@
 
     owner: root
     group: root
-    mode: "0644"
+    mode: "0744"
